@@ -3,6 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 let youtubeData: youtubeDataOptions;
 if (existsSync('.data/youtube.data')) {
     youtubeData = JSON.parse(readFileSync('.data/youtube.data', 'utf-8'));
+    console.log('Reading youtube.data', youtubeData)
     youtubeData.file = true;
 }
 
