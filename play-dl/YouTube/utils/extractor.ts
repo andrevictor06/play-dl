@@ -140,9 +140,7 @@ export async function video_basic_info(url: string, options: InfoOptions = {}): 
     } else {
         const video_id = extractVideoId(url_);
         if (!video_id) throw new Error('This is not a YouTube Watch URL');
-        const new_url = `https://www.youtube.com/watch?v=${video_id}&has_verified=1`;
-        console.log("new_url: ", new_url);
-        
+        const new_url = `https://www.youtube.com/watch?v=${video_id}&has_verified=1`;        
         body = await request(new_url, {
             headers: {
                 'accept-language': options.language || 'en-US;q=0.9'
@@ -151,6 +149,8 @@ export async function video_basic_info(url: string, options: InfoOptions = {}): 
             cookieJar
         });
     }
+    console.log("body: ", body);
+    
     if (body.indexOf('Our systems have detected unusual traffic from your computer network.') !== -1)
         throw new Error('Captcha page: YouTube has detected that you are a bot!');
     const player_data = body
