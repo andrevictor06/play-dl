@@ -693,7 +693,7 @@ async function getIosFormats(videoId: string, cookieJar: { [key: string]: string
         body.split('innertubeApiKey":"')[1]?.split('"')[0] ??
         DEFAULT_API_KEY;
     
-    const response = await request(`https://www.youtube.com/youtubei/v1/player?key=${apiKey}&prettyPrint=false`, {
+    const response = await request(`https://www.youtube.com/youtubei/v1/player?prettyPrint=false`, {
         method: 'POST',
         body: JSON.stringify({
             context: {
@@ -716,9 +716,9 @@ async function getIosFormats(videoId: string, cookieJar: { [key: string]: string
         cookieJar
     });
 
-    console.log("streamingData: ", JSON.parse(response).streamingData.formats);
+    console.log("streamingData: ", JSON.parse(response).streamingData.adaptiveFormats);
     
-    return JSON.parse(response).streamingData.formats;
+    return JSON.parse(response).streamingData.adaptiveFormats;
 }
 
 function getWatchPlaylist(response: any, body: any, url: string): YouTubePlayList {
