@@ -680,10 +680,6 @@ async function acceptViewerDiscretion(
 }
 
 async function getIosFormats(videoId: string, cookieJar: { [key: string]: string }, body: string): Promise<any[]> {
-    const apiKey =
-        body.split('INNERTUBE_API_KEY":"')[1]?.split('"')[0] ??
-        body.split('innertubeApiKey":"')[1]?.split('"')[0] ??
-        DEFAULT_API_KEY;
     
     const response = await request(`https://www.youtube.com/youtubei/v1/player?prettyPrint=false`, {
         method: 'POST',
@@ -708,8 +704,6 @@ async function getIosFormats(videoId: string, cookieJar: { [key: string]: string
         cookieJar
     });
 
-    console.log("streamingData: ", JSON.parse(response).streamingData.adaptiveFormats);
-    
     return JSON.parse(response).streamingData.adaptiveFormats;
 }
 
