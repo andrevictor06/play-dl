@@ -88,6 +88,7 @@ export function request(req_url: string, options: RequestOpts = { method: 'GET' 
                 'user-agent': getRandomUserAgent()
             };
         }
+        console.log(`Cookies Before Request: ${options.cookieJar}`)
         const res = await internalRequest(req_url, options).catch((err: Error) => err);
         if (res instanceof Error) {
             reject(res);
@@ -104,6 +105,7 @@ export function request(req_url: string, options: RequestOpts = { method: 'GET' 
                 cookieHeaders(res.headers['set-cookie']);
             }
         }
+        console.log(`Cookies After Request: ${options.cookieJar}`)
         const data: string[] = [];
         let decoder: BrotliDecompress | Gunzip | Deflate | undefined = undefined;
         const encoding = res.headers['content-encoding'];
