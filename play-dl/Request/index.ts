@@ -95,6 +95,7 @@ export function request(req_url: string, options: RequestOpts = { method: 'GET' 
             return;
         }
         if (res.headers && res.headers['set-cookie']) {
+            console.log('Set-cookie', res.headers['set-cookie'])
             if (options.cookieJar) {
                 for (const cookie of res.headers['set-cookie']) {
                     const parts = cookie.split(';')[0].trim().split('=');
