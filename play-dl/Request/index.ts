@@ -93,7 +93,6 @@ export function request(req_url: string, options: RequestOpts = { method: 'GET' 
             Object.assign(options.headers, headers);
         }
         
-        console.log('getHeaders Before Request', options?.headers)
         const res = await internalRequest(req_url, options).catch((err: Error) => err);
         if (res instanceof Error) {
             reject(res);
@@ -111,7 +110,7 @@ export function request(req_url: string, options: RequestOpts = { method: 'GET' 
                 cookieHeaders(res.headers['set-cookie']);
             }
         }
-        console.log('Cookies After Request', getCookies())
+        console.log('req_url', req_url, ' Cookies After Request', getCookies())
         const data: string[] = [];
         let decoder: BrotliDecompress | Gunzip | Deflate | undefined = undefined;
         const encoding = res.headers['content-encoding'];

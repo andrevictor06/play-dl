@@ -143,7 +143,8 @@ export async function video_basic_info(url: string, options: InfoOptions = {}): 
         const new_url = `https://www.youtube.com/watch?v=${video_id}&has_verified=1`;        
         body = await request(new_url, {
             headers: {
-                'accept-language': options.language || 'en-US;q=0.9'
+                'accept-language': options.language || 'en-US;q=0.9',
+                'Host': 'www.youtube.com'
             },
             cookies: true,
             cookieJar
