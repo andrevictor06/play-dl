@@ -10,6 +10,16 @@ if (existsSync('.data/youtube.data')) {
 interface youtubeDataOptions {
     cookie?: Object;
     file?: boolean;
+    headers?:Object;
+}
+
+export function getHeaders(): undefined | Object {
+    let result = '';
+    if (!youtubeData?.headers) return undefined;
+    for (const [key, value] of Object.entries(youtubeData?.headers)) {
+        result += `${key}=${value};`;
+    }
+    return result;
 }
 
 export function getCookies(): undefined | string {

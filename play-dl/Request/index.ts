@@ -2,7 +2,7 @@ import { IncomingMessage } from 'node:http';
 import { RequestOptions, request as httpsRequest } from 'node:https';
 import { URL } from 'node:url';
 import { BrotliDecompress, Deflate, Gunzip, createGunzip, createBrotliDecompress, createDeflate } from 'node:zlib';
-import { cookieHeaders, getCookies } from '../YouTube/utils/cookie';
+import { cookieHeaders, getCookies, getHeaders } from '../YouTube/utils/cookie';
 import { getRandomUserAgent } from './useragent';
 
 interface RequestOpts extends RequestOptions {
@@ -88,7 +88,12 @@ export function request(req_url: string, options: RequestOpts = { method: 'GET' 
                 'user-agent': getRandomUserAgent()
             };
         }
-        console.log('Cookies Before Request', options?.headers)
+        let headers = getHeaders();
+        if(options.headers && headers){
+            Object.assign(options.headers, headers);
+        }
+        
+        console.log('getHeaders Before Request', options?.headers)
         const res = await internalRequest(req_url, options).catch((err: Error) => err);
         if (res instanceof Error) {
             reject(res);
