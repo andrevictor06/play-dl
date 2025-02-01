@@ -143,7 +143,6 @@ export async function video_basic_info(url: string, options: InfoOptions = {}): 
         const new_url = `https://www.youtube.com/watch?v=${video_id}&has_verified=1`;        
         body = await request(new_url);
     }
-    console.log("body: ", body);
     
     if (body.indexOf('Our systems have detected unusual traffic from your computer network.') !== -1)
         throw new Error('Captcha page: YouTube has detected that you are a bot!');
@@ -151,7 +150,6 @@ export async function video_basic_info(url: string, options: InfoOptions = {}): 
         .split('var ytInitialPlayerResponse = ')?.[1]
         ?.split(';</script>')[0]
         .split(/(?<=}}});\s*(var|const|let)\s/)[0];
-        console.log("url_: ", url_, " player_data: ", player_data);
         
     if (!player_data) throw new Error('Initial Player Response Data is undefined.');
     const initial_data = body
