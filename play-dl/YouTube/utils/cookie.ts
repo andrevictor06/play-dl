@@ -16,10 +16,7 @@ interface youtubeDataOptions {
 export function getHeaders(): undefined | Object {
     let result = '';
     if (!youtubeData?.headers) return undefined;
-    for (const [key, value] of Object.entries(youtubeData?.headers)) {
-        result += `${key}=${value};`;
-    }
-    return result;
+    return youtubeData?.headers;
 }
 
 export function getCookies(): undefined | string {

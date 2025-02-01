@@ -713,7 +713,7 @@ async function getIosFormats(videoId: string, cookieJar: { [key: string]: string
         cookieJar
     });
 
-    console.log(JSON.parse(response).streamingData);
+    console.log(JSON.parse(response));
     
     return JSON.parse(response).streamingData.formats;
 }
