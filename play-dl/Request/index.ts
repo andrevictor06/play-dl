@@ -89,7 +89,9 @@ export function request(req_url: string, options: RequestOpts = { method: 'GET' 
             };
         }
         let headers = getHeaders();
-        if(options.headers && headers){
+        if(headers){
+            if( ! options.headers)
+                options.headers ={}
             Object.assign(options.headers, headers);
         }
         
