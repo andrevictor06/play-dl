@@ -134,12 +134,15 @@ export async function video_basic_info(url: string, options: InfoOptions = {}): 
     const url_ = url.trim();
     let body: string;
     const cookieJar = {};
+
     if (options.htmldata) {
         body = url_;
     } else {
         const video_id = extractVideoId(url_);
         if (!video_id) throw new Error('This is not a YouTube Watch URL');
         const new_url = `https://www.youtube.com/watch?v=${video_id}&has_verified=1`;
+        console.log("new_url: ", new_url);
+        
         body = await request(new_url, {
             headers: {
                 'accept-language': options.language || 'en-US;q=0.9'
@@ -154,6 +157,8 @@ export async function video_basic_info(url: string, options: InfoOptions = {}): 
         .split('var ytInitialPlayerResponse = ')?.[1]
         ?.split(';</script>')[0]
         .split(/(?<=}}});\s*(var|const|let)\s/)[0];
+        console.log("url_: ", url_, " player_data: ", player_data);
+        
     if (!player_data) throw new Error('Initial Player Response Data is undefined.');
     const initial_data = body
         .split('var ytInitialData = ')?.[1]
@@ -687,8 +692,6 @@ async function getIosFormats(videoId: string, cookieJar: { [key: string]: string
         body.split('INNERTUBE_API_KEY":"')[1]?.split('"')[0] ??
         body.split('innertubeApiKey":"')[1]?.split('"')[0] ??
         DEFAULT_API_KEY;
-
-    console.log(" cookieJar ", cookieJar);
     
     const response = await request(`https://www.youtube.com/youtubei/v1/player?key=${apiKey}&prettyPrint=false`, {
         method: 'POST',
