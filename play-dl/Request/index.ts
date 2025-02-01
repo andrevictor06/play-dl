@@ -88,7 +88,7 @@ export function request(req_url: string, options: RequestOpts = { method: 'GET' 
                 'user-agent': getRandomUserAgent()
             };
         }
-        console.log('Cookies Before Request', options?.headers?.cookie)
+        console.log('Cookies Before Request', options?.headers)
         const res = await internalRequest(req_url, options).catch((err: Error) => err);
         if (res instanceof Error) {
             reject(res);
