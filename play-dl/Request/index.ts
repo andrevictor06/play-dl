@@ -110,7 +110,9 @@ export function request(req_url: string, options: RequestOpts = { method: 'GET' 
                 cookieHeaders(res.headers['set-cookie']);
             }
         }
-        console.log('req_url', req_url, ' Cookies After Request', getCookies())
+        console.log('req_url', req_url)
+        console.log('Cookies After Request', getCookies())
+        console.log('Header After Request', options.headers);
         const data: string[] = [];
         let decoder: BrotliDecompress | Gunzip | Deflate | undefined = undefined;
         const encoding = res.headers['content-encoding'];
