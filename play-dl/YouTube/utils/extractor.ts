@@ -140,7 +140,7 @@ export async function video_basic_info(url: string, options: InfoOptions = {}): 
     } else {
         const video_id = extractVideoId(url_);
         if (!video_id) throw new Error('This is not a YouTube Watch URL');
-        const new_url = `https://www.youtube.com/watch?v=${video_id}&has_verified=1`;        
+        const new_url = `https://music.youtube.com/watch?v=${video_id}&has_verified=1`;        
         body = await request(new_url);
     }
     
@@ -681,7 +681,7 @@ async function acceptViewerDiscretion(
 
 async function getIosFormats(videoId: string, cookieJar: { [key: string]: string }, body: string): Promise<any[]> {
     
-    const response = await request(`https://www.youtube.com/youtubei/v1/player?prettyPrint=false`, {
+    const response = await request(`https://music.youtube.com/youtubei/v1/player?prettyPrint=false`, {
         method: 'POST',
         body: JSON.stringify({
             context: {
